@@ -1,0 +1,46 @@
+% ***********************
+% Interpolación de grado n
+% 
+% Q.E Fatima
+% 04-nov-2020, DCI-UG
+% ***********************
+
+clc;
+clearvars;
+
+% Descripcion del codigo
+fprintf('       Regla del trapecio compuesta   \n\n');
+fprintf('   Da una funcion arbitraria f(x), en un intervalo [a, b]\n');
+fprintf(' y una particion n, estima la integral de la función \n\n');
+
+%función
+f_str= input('f(x)= ','s');
+f= str2func(['@(x)', f_str]);
+
+%intervalo de participación
+a= input('\na= ');
+b= input('b= ');
+n= input('\nn= ');
+h= (b-a)/n;
+
+%suma 
+for i=2:n-1
+	dx= a + i*h;
+	suma= suma + f(dx);
+end
+
+% Integral del trapecio compiesto
+I= h/2 * (f(a) + 2*suma + f(b));
+fprint('La integral estimada es; \n I= %s \n\n'num2str(I));
+
+
+% Integral analitica o exacta
+syms x
+I_an= int(str2sym(f_str), a, b);
+fprintf('la integral exacta es: \n I= %s = %s \n\n', I_an, vpa(I_an))
+
+
+%FIN
+
+
+
